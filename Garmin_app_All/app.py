@@ -1,6 +1,5 @@
 from dash.dependencies import Input, Output
-import dash_html_components as html
-import dash_core_components as dcc
+from dash import html,dcc
 import dash   #problem 1
 import plotly.express as px
 from datetime import date, datetime
@@ -73,10 +72,10 @@ def create_data():
             print(path_dest)
             df = pd.read_csv(path_dest +filename)
             try:
-                df['timestamp'] = pd.to_datetime(df['timestamp'], format='%Y-%m-%d %H:%M:%S')
+                df['timestamp'] = pd.to_datetime(df['timestamp'], format='%Y-%m-%d %H:%M:%S%z')
                 df.set_index('timestamp', drop = True, inplace = True)
             except:
-                df['timestamp'] = pd.to_datetime(df['timestamp'], format = '%Y-%m-%d %H:%M:%S')
+                df['timestamp'] = pd.to_datetime(df['timestamp'], format = '%Y-%m-%d %H:%M:%S%z')
                 df.set_index('timestamp', drop=True, inplace=True)
 
             dataDict[filename] = df

@@ -3,7 +3,6 @@ import os
 import fitparse
 import pytz
 import glob
-
 allowed_fields = ['timestamp','position_lat','position_long', 'distance',
 'enhanced_altitude', 'altitude','enhanced_speed',
                  'speed', 'heart_rate','temperature','cadence','fractional_cadence']
@@ -15,13 +14,11 @@ CST = pytz.timezone('US/Pacific')
 def main():
     cartella = 'file_fit_csv'
     files = glob.glob(os.path.join(cartella, '**', '*.fit'), recursive = True)
-    #    files = os.listdir()
     print(files)
     fit_files = [file for file in files if file[-4:].lower()=='.fit']
     for file in fit_files:
         new_filename = file[:-4] + '.csv'
         if os.path.exists(new_filename):
-            #print('%s already exists. skipping.' % new_filename)
             continue
         fitfile = fitparse.FitFile(file,data_processor=fitparse.StandardUnitsDataProcessor())
         
