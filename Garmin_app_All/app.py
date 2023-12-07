@@ -20,9 +20,10 @@ import glob
 
 
 VERSION = '3.0'
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=False)
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']   #stile colora blu
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=False)  #lancio dell'applicazione
 
+#creazione di un log file di debug in caso di problemi da tenere traccia
 logging.basicConfig(format='[%(levelname)s][%(asctime)s]: %(message)s',
                     datefmt='%d-%m-%y %H:%M:%S',
                     filename=".logfile.log",
@@ -30,14 +31,10 @@ logging.basicConfig(format='[%(levelname)s][%(asctime)s]: %(message)s',
                     )
 logging.info('\n------------- Avvio programma')
 
-
-
-def tab_to_df(filename):
+def tab_to_df(filename):       #da sistemare
     cartella = 'file_fit_csv'
     file = glob.glob(os.path.join(cartella, '**', '*.csv'), recursive = True)
-
     df = pd.read_csv(file[0])
-
     df = df[['distance', 'enhanced_speed']]
     df['enhanced_speed'] = 3600 / df['enhanced_speed']
     return df
@@ -47,8 +44,6 @@ def start_webpage():
     address = 8051
     time.sleep(3)
     webbrowser.open('http://127.0.0.1:' + str(address) + '/', new=0)
-
-
 def start_window():
     time.sleep(3)
     app = QApplication(sys.argv)
@@ -83,7 +78,6 @@ def create_data():
         logging.debug('Creo i file csv')
         for filename in os.listdir(path):
             if filename.endswith('.csv'):
-
                 df = tab_to_df(path + filename)
                 df.sort_index(inplace=True)
                 dataDict[filename] = df
@@ -104,9 +98,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.browser)
         self.show()
 
-
 dataDict = create_data()
-
 app.layout = html.Div(
     [
         html.Div(
@@ -132,7 +124,6 @@ app.layout = html.Div(
                         'border-color': 'black'
                     }
                 ),
-
                 # --- OPZIONI PAGINA
                 html.Div(
                     [
@@ -161,7 +152,6 @@ app.layout = html.Div(
                                    "margin-left":  "50px",
                                    "margin-right": "50px"}
                         ),
-
                         html.Div(
                             [
                                 'Timeframe:',
@@ -186,9 +176,7 @@ app.layout = html.Div(
                                    "margin-right": "50px",
                                    "verticalAlign": "top"}
                         ),
-
                         dcc.Store(id='output-container-date-picker-range'),
-
                         html.Div(
                             [
                                 'Intervallo Date',
@@ -208,7 +196,6 @@ app.layout = html.Div(
                                    'display': 'inline-block',
                                    "verticalAlign": "top"}
                         ),
-
                         # --- INFO TABELLA
                         html.Div(
                             [
@@ -229,7 +216,6 @@ app.layout = html.Div(
                     style={'margin-top': '20px'}
                 )
             ]),
-
         html.Div(
             [
                 # --- GRAFICO
@@ -252,8 +238,6 @@ app.layout = html.Div(
         )
 
     ])
-
-
 @app.callback(
     Output('indicator-graphic',                 'figure'),
     Output('my-date-picker-range',              'min_date_allowed'),
