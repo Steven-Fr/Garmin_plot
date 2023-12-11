@@ -7,7 +7,7 @@ eseguendo questo programma, controlla se nella cartella file_fit_csv è presente
 se non c'è nessun file .csv corrispettivo crea il file convertendo il .fit
 Una volta convertito è possibile avere il grafico del passo sec/km sulla distanza percorsa
 
-2)app.py
+2) App.py
 Dentro la cartella Garmin_app_All c'è il programma app.py
 All'avvio controlla se nella cartella file_fit_csv\csv  è presente almeno un file csv, se non è presente prova converte il file .fit presente in file_fit_csv.
 In questa versione abbiamo la presentazione grafica di tutti i dati presenti nell'attività senza trasformazioni sul tempo trascorso dell'attivià, 
