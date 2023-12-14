@@ -8,6 +8,10 @@ import threading
 import Convertitore_fit_csv
 import time
 import glob
+from datetime import timedelta
+import math
+import numpy as np
+
 
 Convertitore_fit_csv.main() #richiamo la libreria che mi crea il file csv se non presente
 time.sleep(1)
@@ -26,6 +30,32 @@ df['pace'] = 3600/df['enhanced_speed']    #trasformo la velocita da km/h a secon
 parametro1 = df['distance']
 parametro2 = df['pace']
 parametro2[parametro2 > 480] = 480       #se il passo è superiore a 8minuti ignoralo e lascia 8
+
+
+
+
+def calcola_distanza_sopra_velocita(distanze, velocita, velocita_limite):
+    distanza_percorsa = 0.0
+
+    for distanza, velocita_istante in zip(distanze, velocita):
+        if not np.isnan(velocita_istante) and velocita_istante < velocita_limite:
+            distanza_percorsa += distanza
+
+    return distanza_percorsa
+print(parametro1[:200])
+velocita_limite = 180
+distanza_sopra_velocita = calcola_distanza_sopra_velocita(parametro1, parametro2, velocita_limite)
+print(distanza_sopra_velocita)
+
+
+
+
+
+# Funzione per formattare i secondi totali come "minuti:secondi"
+def format_seconds(seconds):
+    return str(timedelta(seconds=seconds))
+
+
 # Inizializza l'app Dash
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 #creazione framework web
@@ -65,6 +95,7 @@ app.layout = html.Div(children=[
     [Input('line-plot', 'hoverData')]
 )
 
+
 #funzione per visualizzare il valore passando sopra il mouse
 def display_hover_data(hover_data):
     if hover_data is None:
@@ -72,7 +103,7 @@ def display_hover_data(hover_data):
     # Estrai informazioni sulla posizione del mouse
     x_value = hover_data['points'][0]['x']
     y_value = hover_data['points'][0]['y']
-    return f'Value: Km = {x_value}, passo sec/km = {y_value}' #ritorna la stringa con il valore degli assi
+    return f'Value: Km = {x_value}, passo sec/km = {format_seconds(y_value)}' #ritorna la stringa con il valore degli assi
 
 # Esegui l'app Dash
 if __name__ == '__main__':
