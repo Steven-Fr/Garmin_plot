@@ -43,9 +43,9 @@ def calcola_distanza_sopra_velocita(distanze, velocita, velocita_limite):
 
     return distanza_percorsa
 print(parametro1[:200])
-velocita_limite = 180
+velocita_limite = 230
 distanza_sopra_velocita = calcola_distanza_sopra_velocita(parametro1, parametro2, velocita_limite)
-print(distanza_sopra_velocita)
+print("metri sopra la velocita di:", velocita_limite,"  : ", distanza_sopra_velocita)
 
 
 
@@ -78,7 +78,8 @@ app.layout = html.Div(children=[
             ],
             'layout': {
                 'title': 'Grafico Passo sec/km',
-                'xaxis': {'title': 'Distanza Km','gridcolor': 'black'},
+                'xaxis': {'title': f'Distanza Km - Sei stato sotto i {velocita_limite} sec per una ditanza di {distanza_sopra_velocita} metri','gridcolor': 'black'},
+                #'xaxis': {'title': 'Distanza Km','gridcolor': 'black'},
                 'yaxis': {'title': 'Passo', 'gridcolor': 'black','autorange': 'reversed'},   #inverto i dati dell'asse Y
                 'plot_bgcolor': "#1A3E4C",
                 'paper_bgcolor': "#67AFCB",
