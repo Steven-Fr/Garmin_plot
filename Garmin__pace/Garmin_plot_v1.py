@@ -43,7 +43,7 @@ def calcola_distanza_sopra_velocita(distanze, velocita, velocita_limite):
 
     return distanza_percorsa
 print(parametro1[:200])
-velocita_limite = 230
+velocita_limite = 150
 distanza_sopra_velocita = calcola_distanza_sopra_velocita(parametro1, parametro2, velocita_limite)
 print("metri sopra la velocita di:", velocita_limite,"  : ", distanza_sopra_velocita)
 
