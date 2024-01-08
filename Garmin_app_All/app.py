@@ -19,6 +19,9 @@ import glob
 
 
 
+# Convertitore_fit_csv.main()
+
+
 VERSION = '3.0'
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']   #stile colora blu
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=False)  #lancio dell'applicazione
